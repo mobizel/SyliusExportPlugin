@@ -2,7 +2,7 @@
     "name": "mobizel/sylius-export-plugin",
     "type": "sylius-plugin",
     "keywords": ["sylius", "sylius-plugin", "export"],
-    "description": "Bulk export of sylius resource entity",
+    "description": "Bulk export of sylius resources",
     "license": "MIT",
     "require": {
         "php": "^7.2",

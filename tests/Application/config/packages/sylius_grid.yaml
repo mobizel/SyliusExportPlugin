@@ -1,0 +1,7 @@
+imports:
+  - { resource: '../grids/admin/customer.yaml' }
+
+sylius_grid:
+    templates:
+        bulk_action:
+            export: "@MobizelSyliusExportPlugin/Admin/Grid/BulkAction/export.html.twig"
