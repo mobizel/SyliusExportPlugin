@@ -58,10 +58,9 @@ final class ManagingCustomersContext implements Context
     public function iShouldDownloadACsvFileWithCustomers(int $amountOfCustomers)
     {
         $content = $this->downloadAccessor->getContent();
+        $lines = explode(PHP_EOL, $content);
 
-        $csv = str_getcsv($content);
-
-        Assert::eq(count($csv), $amountOfCustomers + 1);
+        Assert::eq(count($lines), $amountOfCustomers + 2);
     }
 
     /**
@@ -70,6 +69,6 @@ final class ManagingCustomersContext implements Context
      */
     public function theCsvFileShouldContains(string $email)
     {
-        Assert::true($this->downloadAccessor->contentContains($email));
+        Assert::contains($this->downloadAccessor->getContent(), $email);
     }
 }

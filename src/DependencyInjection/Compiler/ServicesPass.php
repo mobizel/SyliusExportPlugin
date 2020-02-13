@@ -38,6 +38,9 @@ use App\Tests\Behat\Element\Shop\ChangePasswordFormElement;
 use App\Tests\Behat\Element\Shop\RegisterElement;
 use App\Validator\Constraints\LocalesAwareValidAttributeValueValidator;
 use Mobizel\SyliusExportPlugin\Controller\ResourceController;
+use Mobizel\SyliusExportPlugin\Exporter\CsvExporter;
+use Mobizel\SyliusExportPlugin\Exporter\ExporterInterface;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -53,8 +56,10 @@ class ServicesPass implements CompilerPassInterface
 
     protected function processController(ContainerBuilder $container): void
     {
+        $csvExporter = $container->findDefinition(ExporterInterface::class);
         $customerController = $container->getDefinition('sylius.controller.customer');
 
         $customerController->setClass(ResourceController::class);
+        $customerController->addMethodCall('setExporter', [$csvExporter]);
     }
 }

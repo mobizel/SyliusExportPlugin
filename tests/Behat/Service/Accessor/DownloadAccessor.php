@@ -40,8 +40,4 @@ class DownloadAccessor implements DownloadAccessorInterface
     {
         return $this->session;
     }
-
-    public function contentContains(string $content): bool {
-        Assert::contains($this->getContent(), $content);
-    }
 }
