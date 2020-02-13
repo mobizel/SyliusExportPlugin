@@ -43,7 +43,7 @@ class ResourceController extends BaseResourceController
         }
 
         // $fileContent = $this->csvOrderExporter->export($paginator->getCurrentPageResults(), $request->getLocale());
-
+        $fileContent = 'test';
         $response = new Response();
         $response->headers->set('Content-Type', 'text/csv');
         $response->headers->set('Content-Disposition', 'attachment; filename="'.$fileName.'"');

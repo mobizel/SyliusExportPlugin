@@ -4,9 +4,9 @@ sylius_admin:
 
 sylius_admin_customer_bulk_export:
     path: /customers/bulk-export
-    methods: [GET]
+    methods: [POST]
     defaults:
         _controller: sylius.controller.customer:bulkExportAction
         _sylius:
-            grid: sylius_backend_customer
+            grid: sylius_admin_customer
             section: backend
