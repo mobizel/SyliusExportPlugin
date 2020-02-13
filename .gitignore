@@ -1,4 +1,7 @@
 etc/build
 tests/Application/var/cache
 tests/Application/var/log
+tests/Application/.env.local
+tests/Application/.env.test.local
+.github
 vendor

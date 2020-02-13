@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of rd_082_s_sylius_export_plugin.
+ * This file is part of sylius_export_plugin.
  *
  * (c) Mobizel.com
  *

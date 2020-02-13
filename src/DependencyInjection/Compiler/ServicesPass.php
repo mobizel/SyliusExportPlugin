@@ -56,6 +56,5 @@ class ServicesPass implements CompilerPassInterface
         $customerController = $container->getDefinition('sylius.controller.customer');
 
         $customerController->setClass(ResourceController::class);
-
     }
 }
