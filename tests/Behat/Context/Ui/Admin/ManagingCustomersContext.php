@@ -53,6 +53,14 @@ final class ManagingCustomersContext implements Context
     }
 
     /**
+     * @When I check (also) the :email customer
+     */
+    public function iCheckTheCustomer(string $email): void
+    {
+        $this->indexPage->checkResourceOnPage(['email' => $email]);
+    }
+
+    /**
      * @Then I should download a csv file with :amountOfCustomers customers
      */
     public function iShouldDownloadACsvFileWithCustomers(int $amountOfCustomers)
@@ -70,5 +78,14 @@ final class ManagingCustomersContext implements Context
     public function theCsvFileShouldContains(string $email)
     {
         Assert::contains($this->downloadAccessor->getContent(), $email);
+    }
+
+    /**
+     * @Then the csv file should not contains :email
+     * @param string $email
+     */
+    public function theCsvFileShouldNotContains(string $email)
+    {
+        Assert::notContains($this->downloadAccessor->getContent(), $email);
     }
 }
