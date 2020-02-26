@@ -22,6 +22,7 @@ use Sylius\Component\Resource\Metadata\RegistryInterface;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
+use Symfony\Component\DependencyInjection\Exception\InvalidParameterTypeException;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Yaml\Yaml;
@@ -39,7 +40,7 @@ final class ResourceLoader implements LoaderInterface
     private $resourceLoader;
 
     public function __construct(
-        BaseResourceLoader $resourceLoader,
+        LoaderInterface $resourceLoader,
         RegistryInterface $resourceRegistry,
         RouteFactoryInterface $routeFactory
     ) {
@@ -61,8 +62,8 @@ final class ResourceLoader implements LoaderInterface
 
         $routes = $this->resourceLoader->load($resource, $type);
 
-        if ((!empty($configuration['only']) && !in_array('bulkEport', $configuration['only']))
-            || (!empty($configuration['except']) && in_array('bulkEport', $configuration['except']))) {
+        if ((!empty($configuration['only']) && !in_array('bulkExport', $configuration['only']))
+            || (!empty($configuration['except']) && in_array('bulkExport', $configuration['except']))) {
             return $routes;
         }
 
