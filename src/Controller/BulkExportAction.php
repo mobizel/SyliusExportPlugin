@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of rd_082_s_sylius_export_plugin.
+ * This file is part of Mobizel Sylius export plugin.
  *
  * (c) Mobizel.com
  *
@@ -23,6 +23,7 @@ use Sylius\Component\Resource\Metadata\MetadataInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -52,14 +53,15 @@ class BulkExportAction
     private $exporter;
 
     public function __construct(
-        MetadataInterface  $metadata,
+        MetadataInterface $metadata,
         RequestConfigurationFactoryInterface $requestConfigurationFactory,
         RepositoryInterface $repository,
         ResourcesCollectionProviderInterface $resourcesCollectionProvider,
         EventDispatcherInterface $eventDispatcher,
         AuthorizationCheckerInterface $authorizationChecker,
         ExporterInterface $exporter
-    ) {
+    )
+    {
         $this->metadata = $metadata;
         $this->requestConfigurationFactory = $requestConfigurationFactory;
         $this->repository = $repository;
@@ -73,30 +75,21 @@ class BulkExportAction
     {
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
+        if (!$configuration->getParameters()->has('grid')) {
+            throw new MissingMandatoryParametersException('parameter grid not found');
+        }
+
         $this->isGrantedOr403($configuration, ResourceActions::BULK_EXPORT);
         $resources = $this->resourcesCollectionProvider->get($configuration, $this->repository);
 
-        $this->eventDispatcher->dispatchMultiple('bulk_export', $configuration, $resources);
-
-        $fileName = sprintf('%s.%s.csv', 'export_commandes', (new \DateTime())->format('d-m-Y_H-m'));
-
-        /** @var Pagerfanta $paginator */
-        if ($resources instanceof ResourceGridView) {
-            $paginator = $resources->getData();
-        } else {
-            $paginator = $resources;
-        }
-
-        if ($paginator->getNbPages() > 1) {
-            $nbResult = $paginator->count();
-            $paginator->setMaxPerPage($nbResult);
-        }
+        $this->eventDispatcher->dispatchMultiple(ResourceActions::BULK_EXPORT, $configuration, $resources);
 
         $fileContent = $this->exporter->export($resources);
+        $fileName = $this->getFileName($configuration);
 
         $response = new Response();
         $response->headers->set('Content-Type', 'text/csv');
-        $response->headers->set('Content-Disposition', 'attachment; filename="'.$fileName.'"');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $fileName . '"');
         $response->headers->set('Pragma', 'no-cache');
         $response->headers->set('Expires', '0');
         $response->headers->set('Content-Transfer-Encoding', 'binary');
@@ -105,6 +98,17 @@ class BulkExportAction
         return $response;
     }
 
+    protected function getFileName(RequestConfiguration $configuration): string
+    {
+        $metadata = $configuration->getMetadata();
+
+        return sprintf(
+            'export_%s_%s_%s.csv',
+            $metadata->getApplicationName(),
+            $metadata->getName(),
+            (new \DateTime())->format('d-m-Y_H-m')
+        );
+    }
 
     /**
      * @throws AccessDeniedException

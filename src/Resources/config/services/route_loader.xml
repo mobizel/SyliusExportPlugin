@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults public="true" />
+
+        <service id="Mobizel\SyliusExportPlugin\Routing\ResourceLoader"
+                 decorates="sylius.routing.loader.resource"
+                 public="false"
+        >
+            <argument type="service" id="Mobizel\SyliusExportPlugin\Routing\ResourceLoader.inner"/>
+            <argument type="service" id="sylius.resource_registry" />
+            <argument type="service">
+                <service class="Sylius\Bundle\ResourceBundle\Routing\RouteFactory" />
+            </argument>
+        </service>
+    </services>
+</container>
