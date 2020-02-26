@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of rd_082_s_sylius_export_plugin.
+ * This file is part of sylius_export_plugin.
  *
  * (c) Mobizel.com
  *
@@ -11,6 +11,7 @@
 
 namespace Mobizel\SyliusExportPlugin\Controller;
 
+use Mobizel\SyliusExportPlugin\Exporter\ExporterInterface;
 use Pagerfanta\Pagerfanta;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController as BaseResourceController;
 use Sylius\Bundle\ResourceBundle\Grid\View\ResourceGridView;
@@ -19,6 +20,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ResourceController extends BaseResourceController
 {
+    /** @var ExporterInterface */
+    private $exporter;
+
+    public function setExporter(ExporterInterface $exporter)
+    {
+        $this->exporter = $exporter;
+    }
+
     public function bulkExportAction(Request $request): Response
     {
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
@@ -42,7 +51,7 @@ class ResourceController extends BaseResourceController
             $paginator->setMaxPerPage($nbResult);
         }
 
-        // $fileContent = $this->csvOrderExporter->export($paginator->getCurrentPageResults(), $request->getLocale());
+        $fileContent = $this->exporter->export($resources);
 
         $response = new Response();
         $response->headers->set('Content-Type', 'text/csv');

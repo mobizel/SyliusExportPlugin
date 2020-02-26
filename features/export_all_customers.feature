@@ -15,5 +15,5 @@ Feature: Export customers
     Scenario: Export all customers
         When I want to see all customers in store
         And I want to export customers
-        # Then I should download a csv file with 2 customers
-        # And The csv file should contains "satin@teamlucifer.com"
+        Then I should download a csv file with 2 customers
+        And the csv file should contains "satin@teamlucifer.com"

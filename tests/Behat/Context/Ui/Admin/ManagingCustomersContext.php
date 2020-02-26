@@ -21,6 +21,7 @@ use Sylius\Behat\Page\Admin\Customer\ShowPageInterface;
 use Sylius\Behat\Page\Admin\Customer\UpdatePageInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
+use Tests\Mobizel\SyliusExportPlugin\Behat\Service\Accessor\DownloadAccessor;
 use Webmozart\Assert\Assert;
 
 final class ManagingCustomersContext implements Context
@@ -28,13 +29,19 @@ final class ManagingCustomersContext implements Context
     /** @var CustomerIndexPageInterface */
     private $indexPage;
 
+    /** @var DownloadAccessor */
+    private $downloadAccessor;
+
     /**
-     * @param CustomerIndexPageInterface $indexPage
+     * @param IndexPageInterface $indexPage
+     * @param DownloadAccessor $downloadAccessor
      */
     public function __construct(
-        IndexPageInterface $indexPage
+        IndexPageInterface $indexPage,
+        DownloadAccessor $downloadAccessor
     ) {
         $this->indexPage = $indexPage;
+        $this->downloadAccessor = $downloadAccessor;
     }
 
     /**
@@ -43,5 +50,25 @@ final class ManagingCustomersContext implements Context
     public function iWantExportCustomers()
     {
         $this->indexPage->bulkExport();
+    }
+
+    /**
+     * @Then I should download a csv file with :amountOfCustomers customers
+     */
+    public function iShouldDownloadACsvFileWithCustomers(int $amountOfCustomers)
+    {
+        $content = $this->downloadAccessor->getContent();
+        $lines = explode(PHP_EOL, $content);
+
+        Assert::eq(count($lines), $amountOfCustomers + 2);
+    }
+
+    /**
+     * @Then the csv file should contains :email
+     * @param string $email
+     */
+    public function theCsvFileShouldContains(string $email)
+    {
+        Assert::contains($this->downloadAccessor->getContent(), $email);
     }
 }
