@@ -32,6 +32,7 @@ final class ManagingCustomersContext implements Context
     /** @var DownloadAccessor */
     private $downloadAccessor;
 
+    private const FILE_PATTERN = 'export_sylius_customer';
     /**
      * @param IndexPageInterface $indexPage
      * @param DownloadAccessor $downloadAccessor
@@ -53,11 +54,20 @@ final class ManagingCustomersContext implements Context
     }
 
     /**
+     * @When I check (also) the :email customer
+     */
+    public function iCheckTheCustomer(string $email): void
+    {
+        $this->indexPage->checkResourceOnPage(['email' => $email]);
+    }
+
+    /**
      * @Then I should download a csv file with :amountOfCustomers customers
      */
     public function iShouldDownloadACsvFileWithCustomers(int $amountOfCustomers)
     {
-        $content = $this->downloadAccessor->getContent();
+        $content = $this->downloadAccessor->getContent(self::FILE_PATTERN);
+
         $lines = explode(PHP_EOL, $content);
 
         Assert::eq(count($lines), $amountOfCustomers + 2);
@@ -69,6 +79,16 @@ final class ManagingCustomersContext implements Context
      */
     public function theCsvFileShouldContains(string $email)
     {
-        Assert::contains($this->downloadAccessor->getContent(), $email);
+
+        Assert::contains($this->downloadAccessor->getContent(self::FILE_PATTERN), $email);
+    }
+
+    /**
+     * @Then the csv file should not contains :email
+     * @param string $email
+     */
+    public function theCsvFileShouldNotContains(string $email)
+    {
+        Assert::notContains($this->downloadAccessor->getContent(self::FILE_PATTERN), $email);
     }
 }

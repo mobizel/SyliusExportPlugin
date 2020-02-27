@@ -5,3 +5,5 @@ tests/Application/.env.local
 tests/Application/.env.test.local
 .github
 vendor
+tests/Application/public/bundles
+tests/Application/public/media

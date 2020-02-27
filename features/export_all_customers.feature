@@ -12,8 +12,18 @@ Feature: Export customers
         And this customer has placed an order "#00000002" on a channel "Web-EU"
         And I am logged in as an administrator
 
+    @ui
     Scenario: Export all customers
         When I want to see all customers in store
         And I want to export customers
         Then I should download a csv file with 2 customers
         And the csv file should contains "satin@teamlucifer.com"
+
+    @ui @javascript
+    Scenario: Export selected customers
+        When I want to see all customers in store
+        And I check the "satin@teamlucifer.com" customer
+        And I want to export customers
+        Then I should download a csv file with 1 customers
+        And the csv file should contains "satin@teamlucifer.com"
+        And the csv file should not contains "lucy@teamlucifer.com"
