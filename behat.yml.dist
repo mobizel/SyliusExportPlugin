@@ -31,9 +31,9 @@ default:
                                     - "start-maximized"
                                     - "no-sandbox"
                                     - "headless"
-                                prefs:
-                                    download:
-                                        default_directory: etc/downloads
+                                #prefs:
+                                #    download:
+                                #        default_directory: etc/downloads
                             extra_capabilities:
                                 unexpectedAlertBehaviour: accept
                 firefox:

@@ -9,7 +9,12 @@
         <service id="Mobizel\SyliusExportPlugin\Exporter\CsvResourceExporter" public="false">
             <argument type="service" key="$fieldsRegistry" id="sylius.registry.grid_field"/>
             <argument type="service" key="$gridRenderer" id="sylius.grid.renderer"/>
+            <tag name="mobizel_export.exporter"/>
         </service>
-        <service id="Mobizel\SyliusExportPlugin\Exporter\ResourceExporterInterface" alias="Mobizel\SyliusExportPlugin\Exporter\CsvResourceExporter"/>
+
+        <service id="Mobizel\SyliusExportPlugin\Exporter\ResourceExporterRegistry" public="false">
+            <argument type="tagged_iterator" tag="mobizel_export.exporter"/>
+            <argument  key="$fallbackFormat" >csv</argument>
+        </service>
     </services>
 </container>

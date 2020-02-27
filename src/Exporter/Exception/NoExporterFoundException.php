@@ -11,13 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Mobizel\SyliusExportPlugin\Exporter;
+namespace Mobizel\SyliusExportPlugin\Exporter\Exception;
 
-use Sylius\Component\Grid\View\GridViewInterface;
-
-interface ResourceExporterInterface
+class NoExporterFoundException extends \Exception
 {
-    public function export(GridViewInterface $gridView): string;
 
-    public function getFormat(): string;
 }

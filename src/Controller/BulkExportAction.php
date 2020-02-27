@@ -12,6 +12,7 @@
 namespace Mobizel\SyliusExportPlugin\Controller;
 
 use Mobizel\SyliusExportPlugin\Exporter\ResourceExporterInterface;
+use Mobizel\SyliusExportPlugin\Exporter\ResourceExporterRegistry;
 use Pagerfanta\Pagerfanta;
 use Sylius\Bundle\ResourceBundle\Controller\AuthorizationCheckerInterface;
 use Sylius\Bundle\ResourceBundle\Controller\EventDispatcherInterface;
@@ -49,8 +50,8 @@ class BulkExportAction
     /** @var AuthorizationCheckerInterface */
     protected $authorizationChecker;
 
-    /** @var ResourceExporterInterface */
-    private $exporter;
+    /** @var ResourceExporterRegistry */
+    private $exporterRegistry;
 
     public function __construct(
         MetadataInterface $metadata,
@@ -59,7 +60,7 @@ class BulkExportAction
         ResourcesCollectionProviderInterface $resourcesCollectionProvider,
         EventDispatcherInterface $eventDispatcher,
         AuthorizationCheckerInterface $authorizationChecker,
-        ResourceExporterInterface $exporter
+        ResourceExporterRegistry $exporterRegistry
     )
     {
         $this->metadata = $metadata;
@@ -68,7 +69,7 @@ class BulkExportAction
         $this->resourcesCollectionProvider = $resourcesCollectionProvider;
         $this->eventDispatcher = $eventDispatcher;
         $this->authorizationChecker = $authorizationChecker;
-        $this->exporter = $exporter;
+        $this->exporterRegistry = $exporterRegistry;
     }
 
     public function __invoke(Request $request): Response
@@ -84,7 +85,8 @@ class BulkExportAction
 
         $this->eventDispatcher->dispatchMultiple(ResourceActions::BULK_EXPORT, $configuration, $resources);
 
-        $fileContent = $this->exporter->export($resources);
+        $exporter = $this->getExporter($request->getRequestFormat());
+        $fileContent = $exporter->export($resources);
         $fileName = $this->getFileName($configuration);
 
         $response = new Response();
@@ -96,6 +98,11 @@ class BulkExportAction
         $response->setContent($fileContent);
 
         return $response;
+    }
+
+    protected function getExporter(string $format): ResourceExporterInterface
+    {
+        return $this->exporterRegistry->getExporter($format);
     }
 
     protected function getFileName(RequestConfiguration $configuration): string

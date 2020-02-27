@@ -74,4 +74,9 @@ class CsvResourceExporter extends AbstractResourceExporter
             fputcsv($this->handle, $row);
         }
     }
+
+    public function getFormat(): string
+    {
+        return 'csv';
+    }
 }
