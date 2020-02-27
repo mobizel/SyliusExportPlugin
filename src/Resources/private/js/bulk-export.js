@@ -1,23 +1,24 @@
-import $ from "jquery";
+const form = document.querySelector('#bulk-export');
+const exportButton = form.querySelector('button');
 
-$('[data-bulk-export]').each((el) => {
-$(el).click((evt) => {
+exportButton.addEventListener('click', (evt) => {
     evt.preventDefault();
 
-    const actionButton = $(evt.currentTarget);
-    const form = actionButton.closest('form');
-
-    let url = $(form).attr('action');
+    let url = form.getAttribute('action');
     url += location.search;
 
-    $(form).attr('action', url);
+    form.setAttribute('action', url);
 
-    $('[name="ids[]"]', form).each((idx, el) => $(el).remove());
+    form.querySelectorAll('[name="ids[]"]').forEach((el) => el.parentNode.removeChild(el));
 
-    $('input.bulk-select-checkbox:checked').each((index, element) => {
-      $(`<input type="hidden" name="ids[]" value="${element.value}">`).appendTo(form);
+    document.querySelectorAll('input.bulk-select-checkbox:checked').forEach((element) => {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', 'ids[]');
+        input.setAttribute('value', element.value);
+
+        form.appendChild(input);
     });
 
     form.submit();
-  });
 });
