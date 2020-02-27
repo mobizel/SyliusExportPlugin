@@ -74,7 +74,7 @@ final class ResourceLoader implements LoaderInterface
 
         $rootPath = sprintf('/%s/', $configuration['path'] ?? Urlizer::urlize($metadata->getPluralName()));
 
-        $bulkDeleteRoute = $this->createRoute($configuration, $rootPath . 'bulk-export', 'bulkExport', ['POST'], $isApi);
+        $bulkDeleteRoute = $this->createRoute($metadata, $configuration, $rootPath . 'bulk-export', 'bulkExport', ['POST'], $isApi);
         $routes->add($this->getRouteName($metadata, $configuration, 'bulk_export'), $bulkDeleteRoute);
 
         return $routes;
@@ -107,6 +107,7 @@ final class ResourceLoader implements LoaderInterface
     }
 
     private function createRoute(
+        MetadataInterface $metadata,
         array $configuration,
         string $path,
         string $actionName,
@@ -115,7 +116,7 @@ final class ResourceLoader implements LoaderInterface
     ): Route
     {
         $defaults = [
-            '_controller' => BulkExportAction::class,
+            '_controller' => sprintf('sylius.controller.%s.export', $metadata->getName()),
         ];
 
         if ($isApi) {

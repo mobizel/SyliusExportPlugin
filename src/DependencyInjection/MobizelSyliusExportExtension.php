@@ -61,7 +61,7 @@ final class MobizelSyliusExportExtension extends Extension
             ])
             ->addTag('controller.service_arguments');
 
-        $container->setDefinition(BulkExportAction::class, $definition);
+        $container->setDefinition(sprintf('sylius.controller.%s.export', $metadata->getName()), $definition);
     }
 
     protected function getMetadataDefinition(MetadataInterface $metadata): Definition
