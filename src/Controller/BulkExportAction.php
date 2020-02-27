@@ -105,8 +105,8 @@ class BulkExportAction
         return sprintf(
             'export_%s_%s_%s.csv',
             $metadata->getApplicationName(),
-            $metadata->getName(),
-            (new \DateTime())->format('d-m-Y_H-m')
+            $metadata->getPluralName(),
+            (new \DateTime())->format('d-m-Y_H-i')
         );
     }
 
