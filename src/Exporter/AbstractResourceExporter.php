@@ -22,7 +22,7 @@ use Sylius\Component\Registry\ServiceRegistryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-abstract class AbstractExporter implements ExporterInterface
+abstract class AbstractResourceExporter implements ResourceExporterInterface
 {
     /** @var TranslatorInterface */
     private $translator;

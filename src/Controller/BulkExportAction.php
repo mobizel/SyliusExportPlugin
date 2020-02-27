@@ -11,7 +11,7 @@
 
 namespace Mobizel\SyliusExportPlugin\Controller;
 
-use Mobizel\SyliusExportPlugin\Exporter\ExporterInterface;
+use Mobizel\SyliusExportPlugin\Exporter\ResourceExporterInterface;
 use Pagerfanta\Pagerfanta;
 use Sylius\Bundle\ResourceBundle\Controller\AuthorizationCheckerInterface;
 use Sylius\Bundle\ResourceBundle\Controller\EventDispatcherInterface;
@@ -49,7 +49,7 @@ class BulkExportAction
     /** @var AuthorizationCheckerInterface */
     protected $authorizationChecker;
 
-    /** @var ExporterInterface */
+    /** @var ResourceExporterInterface */
     private $exporter;
 
     public function __construct(
@@ -59,7 +59,7 @@ class BulkExportAction
         ResourcesCollectionProviderInterface $resourcesCollectionProvider,
         EventDispatcherInterface $eventDispatcher,
         AuthorizationCheckerInterface $authorizationChecker,
-        ExporterInterface $exporter
+        ResourceExporterInterface $exporter
     )
     {
         $this->metadata = $metadata;

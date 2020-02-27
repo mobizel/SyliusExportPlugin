@@ -6,10 +6,10 @@
     <services>
         <defaults autowire="true" autoconfigure="true" public="false"/>
 
-        <service id="Mobizel\SyliusExportPlugin\Exporter\CsvExporter" class="Mobizel\SyliusExportPlugin\Exporter\CsvExporter" public="false">
+        <service id="Mobizel\SyliusExportPlugin\Exporter\CsvResourceExporter" public="false">
             <argument type="service" key="$fieldsRegistry" id="sylius.registry.grid_field"/>
             <argument type="service" key="$gridRenderer" id="sylius.grid.renderer"/>
         </service>
-        <service id="Mobizel\SyliusExportPlugin\Exporter\ExporterInterface" alias="Mobizel\SyliusExportPlugin\Exporter\CsvExporter"/>
+        <service id="Mobizel\SyliusExportPlugin\Exporter\ResourceExporterInterface" alias="Mobizel\SyliusExportPlugin\Exporter\CsvResourceExporter"/>
     </services>
 </container>
