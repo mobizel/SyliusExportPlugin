@@ -24,7 +24,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Webmozart\Assert\Assert;
 
-class CsvExporter extends AbstractExporter
+class CsvResourceExporter extends AbstractResourceExporter
 {
     /** @var  resource */
     private $handle;

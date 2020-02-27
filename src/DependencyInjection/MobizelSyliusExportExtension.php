@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mobizel\SyliusExportPlugin\DependencyInjection;
 
 use Mobizel\SyliusExportPlugin\Controller\BulkExportAction;
-use Mobizel\SyliusExportPlugin\Exporter\ExporterInterface;
+use Mobizel\SyliusExportPlugin\Exporter\ResourceExporterInterface;
 use Sylius\Component\Resource\Metadata\Metadata;
 use Sylius\Component\Resource\Metadata\MetadataInterface;
 use Symfony\Component\Config\FileLocator;
@@ -57,7 +57,7 @@ final class MobizelSyliusExportExtension extends Extension
                 new Reference('sylius.resource_controller.resources_collection_provider'),
                 new Reference('sylius.resource_controller.event_dispatcher'),
                 new Reference('sylius.resource_controller.authorization_checker'),
-                new Reference(ExporterInterface::class),
+                new Reference(ResourceExporterInterface::class),
             ])
             ->addTag('controller.service_arguments');
 

@@ -15,7 +15,7 @@ namespace Mobizel\SyliusExportPlugin\Exporter;
 
 use Sylius\Component\Grid\View\GridViewInterface;
 
-interface ExporterInterface
+interface ResourceExporterInterface
 {
     public function export(GridViewInterface $gridView): string;
 }
