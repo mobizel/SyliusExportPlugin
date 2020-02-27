@@ -6,4 +6,5 @@
 
 <h1 align="center">Mobizel Export plugin</h1>
 
+<p>Add a new bulckAction and a new route 'bulk_export' to all sylius resources</p>
 <p>Documentation will be available soon.</p>
