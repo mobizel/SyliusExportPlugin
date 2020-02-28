@@ -34,14 +34,21 @@ class CsvResourceExporter extends AbstractResourceExporter
         $definition = $gridView->getDefinition();
 
         ob_start();
-        $this->handle = fopen('php://output', 'w');
+        $handle = fopen('php://output', 'w');
+
+        if (false === $handle) {
+            throw new \Exception('Error opening constol output');
+        }
+
+        $this->handle = $handle;
 
         $this->exportHeaders($definition);
         $this->exportContent($gridView);
 
         fclose($this->handle);
+        $content = ob_get_clean();
 
-        return ob_get_clean();
+        return false === $content ? '' : $content;
     }
 
     protected function exportHeaders(Grid $definition): void

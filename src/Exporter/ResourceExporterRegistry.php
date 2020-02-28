@@ -55,7 +55,7 @@ class ResourceExporterRegistry
 
     /**
      * @param string $format
-     * @return bool
+     * @return ResourceExporterInterface
      * @throws \Exception
      */
     public function getExporter(?string $format): ResourceExporterInterface
