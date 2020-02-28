@@ -19,7 +19,7 @@ Feature: Export customers
         Then I should download a csv file with 2 customers
         And the csv file should contains "satin@teamlucifer.com"
 
-    @ui @javascript
+    @ui @javascript @todo
     Scenario: Export selected customers
         When I want to see all customers in store
         And I check the "satin@teamlucifer.com" customer
