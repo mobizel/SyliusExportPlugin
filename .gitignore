@@ -4,6 +4,7 @@ tests/Application/var/log
 tests/Application/.env.local
 tests/Application/.env.test.local
 .github
+composer.lock
 vendor
 tests/Application/public/bundles
 tests/Application/public/media
