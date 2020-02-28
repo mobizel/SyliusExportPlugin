@@ -2,14 +2,8 @@ language: php
 
 dist: trusty
 
-sudo: false
-
 php:
-    - '7.2'
     - '7.3'
-
-services:
-    - mysql
 
 cache:
     yarn: true
