@@ -23,9 +23,11 @@ class ResourceExporterRegistry
 
     /** @var string */
     private $fallbackFormat;
+
     /**
      * ResourceImporterRegistry constructor.
      * @param iterable $exporters
+     * @param string $fallbackFormat
      * @throws ExporterAlreadyExistException
      */
     public function __construct(iterable $exporters, string $fallbackFormat)
@@ -56,7 +58,7 @@ class ResourceExporterRegistry
      * @return bool
      * @throws \Exception
      */
-    public function getExporter(string $format): ResourceExporterInterface
+    public function getExporter(?string $format): ResourceExporterInterface
     {
         $exporter = $this->exporters[$format] ?? null;
 

@@ -154,7 +154,9 @@ final class ResourceLoader implements LoaderInterface
         }
 
         $defaults['_sylius']['paginate'] = false;
-        $defaults['format'] = 'csv';
+
+        $exportFormat = $configuration['vars']['export_format'] ?? 'csv';
+        $defaults['_sylius']['vars']['export_format'] = $exportFormat;
 
         return $this->routeFactory->createRoute($path, $defaults, [], [], '', [], $methods);
     }

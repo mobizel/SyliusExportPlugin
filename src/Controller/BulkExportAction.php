@@ -85,7 +85,7 @@ class BulkExportAction
 
         $this->eventDispatcher->dispatchMultiple(ResourceActions::BULK_EXPORT, $configuration, $resources);
 
-        $exporter = $this->getExporter($request->getRequestFormat());
+        $exporter = $this->getExporter($this->getExportFormat($configuration));
         $fileContent = $exporter->export($resources);
         $fileName = $this->getFileName($configuration);
 
@@ -100,9 +100,15 @@ class BulkExportAction
         return $response;
     }
 
-    protected function getExporter(string $format): ResourceExporterInterface
+    protected function getExporter(?string $format): ResourceExporterInterface
     {
         return $this->exporterRegistry->getExporter($format);
+    }
+
+    protected function getExportFormat(RequestConfiguration $configuration): ?string
+    {
+        $vars = $configuration->getParameters()->get('vars');
+        return $vars['export_format'] ?? null;
     }
 
     protected function getFileName(RequestConfiguration $configuration): string
