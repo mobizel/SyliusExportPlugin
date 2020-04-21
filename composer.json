@@ -7,7 +7,8 @@
     "require": {
         "php": "^7.2",
         "sylius/grid-bundle": "^1.6",
-        "sylius/resource-bundle": "^1.6"
+        "sylius/resource-bundle": "^1.6",
+        "se/selenium-server-standalone": "^2.52"
     },
     "require-dev": {
         "behat/behat": "^3.4",

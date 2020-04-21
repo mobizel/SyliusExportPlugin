@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Mobizel\SyliusExportPlugin\Routing;
 
 use Gedmo\Sluggable\Util\Urlizer;
-use Mobizel\SyliusExportPlugin\Controller\BulkExportAction;
 use Sylius\Bundle\ResourceBundle\Routing\Configuration;
 use Sylius\Bundle\ResourceBundle\Routing\RouteFactoryInterface;
 use Sylius\Component\Resource\Metadata\MetadataInterface;
@@ -22,11 +21,9 @@ use Sylius\Component\Resource\Metadata\RegistryInterface;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
-use Symfony\Component\DependencyInjection\Exception\InvalidParameterTypeException;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Yaml\Yaml;
-use Sylius\Bundle\ResourceBundle\Routing\ResourceLoader as BaseResourceLoader;
 
 final class ResourceLoader implements LoaderInterface
 {
@@ -36,7 +33,7 @@ final class ResourceLoader implements LoaderInterface
     /** @var RouteFactoryInterface */
     private $routeFactory;
 
-    /** @var BaseResourceLoader */
+    /** @var LoaderInterface */
     private $resourceLoader;
 
     public function __construct(
@@ -154,6 +151,9 @@ final class ResourceLoader implements LoaderInterface
         }
 
         $defaults['_sylius']['paginate'] = false;
+
+        $exportFormat = $configuration['vars']['export_format'] ?? 'csv';
+        $defaults['_sylius']['vars']['export_format'] = $exportFormat;
 
         return $this->routeFactory->createRoute($path, $defaults, [], [], '', [], $methods);
     }

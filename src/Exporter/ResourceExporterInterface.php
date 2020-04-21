@@ -18,4 +18,6 @@ use Sylius\Component\Grid\View\GridViewInterface;
 interface ResourceExporterInterface
 {
     public function export(GridViewInterface $gridView): string;
+
+    public function getFormat(): string;
 }
