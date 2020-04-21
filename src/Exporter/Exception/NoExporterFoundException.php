@@ -15,5 +15,4 @@ namespace Mobizel\SyliusExportPlugin\Exporter\Exception;
 
 class NoExporterFoundException extends \Exception
 {
-
 }
