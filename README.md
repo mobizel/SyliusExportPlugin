@@ -14,7 +14,7 @@
         <img src="https://img.shields.io/packagist/v/mobizel/sylius-export-plugin.svg" />
     </a>
     <a href="http://travis-ci.org/mobizel/sylius-export-plugin" title="Build status">
-        <img src="https://img.shields.io/travis/mobizel/sylius-export-plugin/master.svg" />
+        <img src="https://travis-ci.org/mobizel/SyliusExportPlugin.svg?branch=master" />
     </a>
 </p>
 
