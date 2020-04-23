@@ -106,7 +106,7 @@ Copy ```vendor/sylius/sylius/src/Sylius/Bundle/UiBundle/Resources/views/Macro/bu
 
 ### Javascript integration
 
-```--------------- @TODO ---------------```
+Integrate ```vendor/mobizel/sylius-export-plugin/src/Resources/private/js/bulk-export.js``` in your javascript build (webpack / gulp) or directly in twig (you need to copy file to your assets directory)
 
 ## How to use it
 
