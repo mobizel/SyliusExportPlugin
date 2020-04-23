@@ -13,7 +13,7 @@
     <a href="https://packagist.org/packages/mobizel/sylius-export-plugin" title="Version">
         <img src="https://img.shields.io/packagist/v/mobizel/sylius-export-plugin.svg" />
     </a>
-    <a href="http://travis-ci.org/FriendsOfSylius/SyliusImportExportPlugin" title="Build status">
+    <a href="http://travis-ci.org/mobizel/sylius-export-plugin" title="Build status">
         <img src="https://img.shields.io/travis/mobizel/sylius-export-plugin/master.svg" />
     </a>
 </p>

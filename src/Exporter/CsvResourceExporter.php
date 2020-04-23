@@ -37,7 +37,7 @@ class CsvResourceExporter extends AbstractResourceExporter
         $handle = fopen('php://output', 'w');
 
         if (false === $handle) {
-            throw new \Exception('Error opening constol output');
+            throw new \Exception('Error opening console output');
         }
 
         $this->handle = $handle;
@@ -65,15 +65,9 @@ class CsvResourceExporter extends AbstractResourceExporter
         fputcsv($this->handle, $headers);
     }
 
-    protected function exportContent(GridViewInterface $gridView): void
+    protected function exportResources(GridViewInterface $gridView, $resources, array $fields): void
     {
-        $definition = $gridView->getDefinition();
-        $data = $gridView->getData();
-        $fields = $definition->getEnabledFields();
-
-        $this->sortFields($fields);
-
-        foreach ($data as $resource) {
+        foreach ($resources as $resource) {
             $row = [];
             foreach ($fields as $field) {
                 $row[] = $this->getFieldValue($gridView, $field, $resource);
