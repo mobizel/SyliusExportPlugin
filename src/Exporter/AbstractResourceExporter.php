@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Mobizel\SyliusExportPlugin\Exporter;
 
+use Pagerfanta\Pagerfanta;
+use Sylius\Bundle\ResourceBundle\Grid\View\ResourceGridView;
 use Sylius\Component\Grid\DataExtractor\DataExtractorInterface;
 use Sylius\Component\Grid\Definition\Field;
 use Sylius\Component\Grid\Definition\Grid;
@@ -42,9 +44,28 @@ abstract class AbstractResourceExporter implements ResourceExporterInterface
 
     abstract public function export(GridViewInterface $gridView): string;
 
-    abstract protected function exportHeaders(Grid $definition);
+    abstract protected function exportHeaders(Grid $definition): void;
 
-    abstract protected function exportContent(GridViewInterface $gridView);
+    abstract protected function exportResources(GridViewInterface $gridView, $resources, array $fields): void;
+
+    protected function exportContent(GridViewInterface $gridView): void
+    {
+        $definition = $gridView->getDefinition();
+        $fields = $definition->getEnabledFields();
+
+        $this->sortFields($fields);
+
+        if ($gridView instanceof ResourceGridView) {
+            /** @var Pagerfanta $paginator */
+            $paginator = $gridView->getData();
+            for ($currentPage = 1; $currentPage <= $paginator->getNbPages(); ++$currentPage) {
+                $paginator->setCurrentPage($currentPage);
+                $this->exportResources($gridView, $paginator->getCurrentPageResults(), $fields);
+            }
+        } else {
+            $this->exportResources($gridView, $gridView->getData(), $fields);
+        }
+    }
 
     protected function sortFields(array &$fields): void
     {
