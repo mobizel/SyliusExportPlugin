@@ -97,7 +97,7 @@ Copy ```vendor/sylius/sylius/src/Sylius/Bundle/UiBundle/Resources/views/Macro/bu
 ````twig
 {% macro bulkExport(url, message, labeled = true) %}
     <form action="{{ url }}" method="post" id="bulk-export">
-        <button class="ui red {% if labeled %}labeled {% endif %}icon button not_disabled" type="submit">
+        <button class="ui red {% if labeled %}labeled {% endif %}icon button not_disabled js-bulk-export" type="submit">
             <i class="icon download"></i> {{ ((message is empty and labeled) ? 'sylius.ui.export' : message)|trans }}
         </button>
     </form>
