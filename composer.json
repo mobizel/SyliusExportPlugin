@@ -5,7 +5,7 @@
     "description": "Bulk export of sylius resources",
     "license": "MIT",
     "require": {
-        "php": "^7.2",
+        "php": "^7.3",
         "sylius/grid-bundle": "^1.6",
         "sylius/resource-bundle": "^1.6",
         "se/selenium-server-standalone": "^2.52"
@@ -48,7 +48,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.6-dev"
+            "dev-master": "master"
         }
     }
 }
