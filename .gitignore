@@ -12,4 +12,4 @@ tests/Application/node_modules
 tests/Application/public/assets
 yarn.lock
 etc/downloads
-export_sylius_customers
+export_sylius_customers*
