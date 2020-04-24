@@ -30,7 +30,7 @@ default:
                                     - "start-fullscreen"
                                     - "start-maximized"
                                     - "no-sandbox"
-                                    - "headless"
+                                #    - "headless"
                                 #prefs:
                                 #    download:
                                 #        default_directory: etc/downloads

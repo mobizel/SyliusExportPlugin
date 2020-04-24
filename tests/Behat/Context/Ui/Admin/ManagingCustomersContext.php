@@ -21,12 +21,13 @@ use Sylius\Behat\Page\Admin\Customer\ShowPageInterface;
 use Sylius\Behat\Page\Admin\Customer\UpdatePageInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
+use Tests\Mobizel\SyliusExportPlugin\Behat\Page\Admin\Customer\IndexPage;
 use Tests\Mobizel\SyliusExportPlugin\Behat\Service\Accessor\DownloadAccessor;
 use Webmozart\Assert\Assert;
 
 final class ManagingCustomersContext implements Context
 {
-    /** @var CustomerIndexPageInterface */
+    /** @var IndexPage */
     private $indexPage;
 
     /** @var DownloadAccessor */
@@ -90,5 +91,14 @@ final class ManagingCustomersContext implements Context
     public function theCsvFileShouldNotContains(string $email)
     {
         Assert::notContains($this->downloadAccessor->getContent(self::FILE_PATTERN), $email);
+    }
+
+    /**
+     * @Then I filter customers by value :search
+     * @param string $search
+     */
+    public function iFilterCustomers(string $search)
+    {
+        $this->indexPage->searchForCustomers($search);
     }
 }
