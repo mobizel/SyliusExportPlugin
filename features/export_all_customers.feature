@@ -21,7 +21,7 @@ Feature: Export customers
         And this customer has placed an order "#00000101" on a channel "Web-EU"
         When I want to see all customers in store
         And I want to export customers
-        Then I should download a csv file with 12 customers
+        Then I should download a csv file with 13 customers
         And the csv file should contains "satin@teamlucifer.com"
         And the csv file should contains "last@added.com"
 
