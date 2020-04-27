@@ -31,6 +31,7 @@ default:
                                     - "start-maximized"
                                     - "no-sandbox"
                                     - "headless"
+                                    - "window-size=1920,1080"
                                 prefs:
                                     download:
                                         default_directory: etc/downloads
