@@ -68,7 +68,7 @@ before_script:
     - java -Dwebdriver.chrome.driver=$SYLIUS_CACHE_DIR/chromedriver -jar $SYLIUS_CACHE_DIR/selenium.jar > /dev/null 2>&1 &
 
     # Run webserver
-    - $SYLIUS_CACHE_DIR/symfony server:start --no-tls --port=8080 --dir=public --force-php-discovery --daemon
+    - $SYLIUS_CACHE_DIR/symfony server:start --dir=public --force-php-discovery --daemon
 script:
     - composer validate
     - vendor/bin/phpstan analyse -c phpstan.neon -l max src/
