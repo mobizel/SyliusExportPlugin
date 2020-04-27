@@ -51,6 +51,7 @@ final class ManagingCustomersContext implements Context
      */
     public function iWantExportCustomers()
     {
+        $this->downloadAccessor->clearFiles();
         $this->indexPage->bulkExport();
     }
 

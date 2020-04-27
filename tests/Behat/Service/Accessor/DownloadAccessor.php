@@ -32,6 +32,20 @@ class DownloadAccessor implements DownloadAccessorInterface
         $this->session = $session;
     }
 
+    public function clearFiles() :void
+    {
+        $driver = $this->getSession()->getDriver();
+        if ($driver instanceof Selenium2Driver) {
+            $finder = new Finder();
+
+            $finder->sortByModifiedTime();
+
+           foreach ($finder->in($this->getDownloadDir())->getIterator() as $file) {
+               unlink($file->getRealPath());
+           }
+        }
+    }
+
     public function getContent(string $filePattern = null): string
     {
         $driver = $this->getSession()->getDriver();
