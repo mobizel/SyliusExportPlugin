@@ -20,4 +20,6 @@ interface ResourceExporterInterface
     public function export(GridViewInterface $gridView): string;
 
     public function getFormat(): string;
+
+    public function getContentType(): string;
 }

@@ -80,4 +80,9 @@ class CsvResourceExporter extends AbstractResourceExporter
     {
         return 'csv';
     }
+
+    public function getContentType(): string
+    {
+        return 'text/csv';
+    }
 }
