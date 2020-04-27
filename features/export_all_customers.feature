@@ -25,7 +25,7 @@ Feature: Export customers
         And the csv file should contains "satin@teamlucifer.com"
         And the csv file should contains "last@added.com"
 
-    @ui @javascript @todo
+    @ui @javascript
     Scenario: Export customers after search
         When I want to see all customers in store
         Then I filter customers by value "satin@teamlucifer.com"
@@ -34,7 +34,7 @@ Feature: Export customers
         And the csv file should contains "satin@teamlucifer.com"
         But the csv file should not contains "lucy@teamlucifer.com"
 
-    @ui @javascript @todo
+    @ui @javascript
     Scenario: Export selected customers
         When I want to see all customers in store
         And I check the "satin@teamlucifer.com" customer
