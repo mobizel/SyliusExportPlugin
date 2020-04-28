@@ -12,6 +12,7 @@ Feature: Export customers
         And this customer has placed an order "#00000001" on a channel "Web-EU"
         And there is a customer "Satin" identified by an email "satin@teamlucifer.com" and a password "pswd"
         And this customer has placed an order "#00000002" on a channel "Web-EU"
+        And I want to log in
         And I am logged in as an administrator
 
     @ui

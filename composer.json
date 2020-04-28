@@ -13,13 +13,13 @@
     "require": {
         "php": "^7.3",
         "sylius/grid-bundle": "^1.6",
-        "sylius/resource-bundle": "^1.6",
-        "se/selenium-server-standalone": "^2.52"
+        "sylius/resource-bundle": "^1.6"
     },
     "require-dev": {
         "behat/behat": "^3.4",
         "behat/mink-browserkit-driver": "^1.3",
         "behat/mink-selenium2-driver": "^1.3",
+        "dmore/behat-chrome-extension": "^1.3",
         "friends-of-behat/mink": "^1.7@dev",
         "friends-of-behat/mink-extension": "dev-feature/add-prefs-node-to-chrome-config as v2.4.0",
         "friends-of-behat/page-object-extension": "^0.3",
@@ -40,7 +40,8 @@
         "symfony/intl": "^3.4|^4.3",
         "symfony/web-profiler-bundle": "^3.4|^4.3",
         "symfony/web-server-bundle": "^3.4|^4.3",
-        "sylius/sylius": "^1.6"
+        "sylius/sylius": "^1.6",
+        "se/selenium-server-standalone": "^2.52"
     },
     "prefer-stable": true,
     "autoload": {

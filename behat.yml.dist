@@ -4,6 +4,7 @@ imports:
 
 default:
     extensions:
+        DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension: ~
         Lakion\Behat\MinkDebugExtension:
             directory: etc/build
             clean_start: false
@@ -12,12 +13,20 @@ default:
         Behat\MinkExtension:
             files_path: "%paths.base%/vendor/sylius/sylius/src/Sylius/Behat/Resources/fixtures/"
             base_url: "http://localhost:8000/"
+            browser_name: chrome
             default_session: symfony
             javascript_session: chrome
             sessions:
+                chrome:
+                    chrome:
+                        api_url: "http://localhost:9222"
+                        download_behavior: allow
+                        download_path: etc/downloads
+                        validate_certificate: false
+                        dom_wait_timeout: 10000
                 symfony:
                     symfony: ~
-                chrome:
+                chrome_javascript:
                     selenium2:
                         browser: chrome
                         capabilities:
