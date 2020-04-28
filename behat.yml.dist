@@ -36,6 +36,7 @@ default:
                                 prefs:
                                     download:
                                         default_directory: etc/downloads
+                                        prompt_for_download: false
                             extra_capabilities:
                                 unexpectedAlertBehaviour: accept
                 firefox:

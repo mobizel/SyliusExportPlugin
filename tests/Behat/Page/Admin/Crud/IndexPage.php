@@ -15,6 +15,7 @@ use Behat\Mink\Driver\Selenium2Driver;
 use Behat\Mink\Session;
 use \Sylius\Behat\Page\Admin\Crud\IndexPage as BaseIndexPage;
 use Sylius\Behat\Service\Accessor\TableAccessorInterface;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -26,6 +27,9 @@ class IndexPage extends BaseIndexPage implements IndexPageInterface
     {
         $this->getElement('bulk_actions')->pressButton('Export');
 
-        $this->getSession()->wait('5000');
+        $driver = $this->getSession()->getDriver();
+        if ($driver instanceof Selenium2Driver) {
+            $this->getSession()->wait('20000');
+        }
     }
 }
