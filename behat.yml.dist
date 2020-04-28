@@ -35,7 +35,7 @@ default:
                                     - "--disable-gpu"
                                 prefs:
                                     download:
-                                        default_directory: "%paths.base%etc/downloads"
+                                        default_directory: "%paths.base%/etc/downloads"
                                         prompt_for_download: false
                             extra_capabilities:
                                 unexpectedAlertBehaviour: accept
