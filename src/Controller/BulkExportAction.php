@@ -61,8 +61,7 @@ class BulkExportAction
         EventDispatcherInterface $eventDispatcher,
         AuthorizationCheckerInterface $authorizationChecker,
         ResourceExporterRegistry $exporterRegistry
-    )
-    {
+    ) {
         $this->metadata = $metadata;
         $this->requestConfigurationFactory = $requestConfigurationFactory;
         $this->repository = $repository;
@@ -90,7 +89,7 @@ class BulkExportAction
         $fileName = $this->getFileName($configuration);
 
         $response = new Response();
-        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Type', $exporter->getContentType());
         $response->headers->set('Content-Disposition', 'attachment; filename="' . $fileName . '"');
         $response->headers->set('Pragma', 'no-cache');
         $response->headers->set('Expires', '0');

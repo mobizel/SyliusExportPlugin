@@ -11,7 +11,7 @@ default:
 
         Behat\MinkExtension:
             files_path: "%paths.base%/vendor/sylius/sylius/src/Sylius/Behat/Resources/fixtures/"
-            base_url: "http://localhost:8080/"
+            base_url: "http://localhost:8000/"
             default_session: symfony
             javascript_session: chrome
             sessions:
@@ -31,9 +31,12 @@ default:
                                     - "start-maximized"
                                     - "no-sandbox"
                                     - "headless"
-                                #prefs:
-                                #    download:
-                                #        default_directory: etc/downloads
+                                    - "window-size=1920,1080"
+                                    - "--disable-gpu"
+                                prefs:
+                                    download:
+                                        default_directory: "%paths.base%/etc/downloads"
+                                        prompt_for_download: false
                             extra_capabilities:
                                 unexpectedAlertBehaviour: accept
                 firefox:
