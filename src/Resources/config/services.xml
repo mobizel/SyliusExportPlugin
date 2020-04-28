@@ -6,7 +6,4 @@
         <import resource="services/route_loader.xml"/>
         <import resource="services/exporter.xml"/>
     </imports>
-    <parameters>
-        <parameter key="download_path">etc/downloads</parameter>
-    </parameters>
 </container>
