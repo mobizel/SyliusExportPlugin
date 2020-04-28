@@ -69,11 +69,6 @@ final class ManagingCustomersContext implements Context
      */
     public function iShouldDownloadACsvFileWithCustomers(int $amountOfCustomers)
     {
-        $driver = $this->getSession()->getDriver();
-        if ($driver instanceof Selenium2Driver) {
-            $this->getSession()->wait('20000');
-        }
-
         $content = $this->downloadAccessor->getContent(self::FILE_PATTERN);
 
         $lines = explode(PHP_EOL, $content);
