@@ -33,6 +33,8 @@ class IndexPage extends BaseIndexPage implements IndexPageInterface
         $this->openFilters();
         $this->getElement('filter_value')->setValue($search);
         $this->filter();
+        
+        $this->getSession()->wait('5000');
     }
 
     public function openFilters(): void

@@ -25,5 +25,7 @@ class IndexPage extends BaseIndexPage implements IndexPageInterface
     public function bulkExport(): void
     {
         $this->getElement('bulk_actions')->pressButton('Export');
+
+        $this->getSession()->wait('5000');
     }
 }
