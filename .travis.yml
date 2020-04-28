@@ -42,7 +42,7 @@ before_script:
     - (cd tests/Application && yarn build)
 
     # Run Chrome
-    -  google-chrome --disable-gpu --headless --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222
+    -  google-chrome --disable-gpu --headless --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 > /dev/null 2>&1 &
 
     # Run webserver
     - (cd tests/Application && $SYLIUS_CACHE_DIR/symfony server:start --dir=public --force-php-discovery --daemon)
