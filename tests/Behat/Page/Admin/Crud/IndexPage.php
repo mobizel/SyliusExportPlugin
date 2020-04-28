@@ -25,11 +25,10 @@ class IndexPage extends BaseIndexPage implements IndexPageInterface
 {
     public function bulkExport(): void
     {
-        $this->getElement('bulk_actions')->pressButton('Export');
-
         $driver = $this->getSession()->getDriver();
         if ($driver instanceof Selenium2Driver) {
-            $this->getSession()->wait('20000');
+            $this->getSession()->wait('2000');
         }
+        $this->getElement('bulk_actions')->pressButton('Export');
     }
 }

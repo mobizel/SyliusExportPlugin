@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Mobizel\SyliusExportPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Behat\Mink\Driver\Selenium2Driver;
 use Sylius\Behat\Page\Admin\Crud\IndexPageInterface;
 use Sylius\Behat\Page\Admin\Customer\CreatePageInterface;
 use Sylius\Behat\Page\Admin\Customer\IndexPageInterface as CustomerIndexPageInterface;
@@ -68,6 +69,11 @@ final class ManagingCustomersContext implements Context
      */
     public function iShouldDownloadACsvFileWithCustomers(int $amountOfCustomers)
     {
+        $driver = $this->getSession()->getDriver();
+        if ($driver instanceof Selenium2Driver) {
+            $this->getSession()->wait('20000');
+        }
+
         $content = $this->downloadAccessor->getContent(self::FILE_PATTERN);
 
         $lines = explode(PHP_EOL, $content);
