@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Mobizel\SyliusExportPlugin\Exporter;
 
+use Mobizel\SyliusExportPlugin\Writer\WriterInterface;
 use Pagerfanta\Pagerfanta;
 use Sylius\Bundle\ResourceBundle\Grid\View\ResourceGridView;
 use Sylius\Component\Grid\DataExtractor\DataExtractorInterface;
@@ -35,26 +36,44 @@ abstract class AbstractResourceExporter implements ResourceExporterInterface
     /** @var GridRendererInterface */
     private $gridRenderer;
 
-    public function __construct(TranslatorInterface $translator, ServiceRegistryInterface $fieldsRegistry, GridRendererInterface $gridRenderer)
-    {
+    /** @var WriterInterface */
+    protected $writer;
+
+    public function __construct(
+        TranslatorInterface $translator,
+        ServiceRegistryInterface $fieldsRegistry,
+        GridRendererInterface $gridRenderer,
+        WriterInterface $writer
+    ) {
         $this->translator = $translator;
         $this->fieldsRegistry = $fieldsRegistry;
         $this->gridRenderer = $gridRenderer;
+        $this->writer = $writer;
     }
 
-    abstract public function export(GridViewInterface $gridView): string;
+    public function export(GridViewInterface $gridView, string $filename = null): string
+    {
+        $definition = $gridView->getDefinition();
+        if (null !== $filename) {
+            $this->writer->start($filename);
+        }
 
-    abstract protected function exportHeaders(Grid $definition): void;
+        $fields = $this->getFields($definition);
+
+        $this->exportContent($gridView, $fields);
+
+        return $this->writer->getContent();
+    }
 
     abstract protected function exportResources(GridViewInterface $gridView, $resources, array $fields): void;
 
-    protected function exportContent(GridViewInterface $gridView): void
+    protected function getFields(Grid $definition): array
     {
-        $definition = $gridView->getDefinition();
-        $fields = $definition->getEnabledFields();
+        return $this->getFieldByPosition($definition);
+    }
 
-        $this->sortFields($fields);
-
+    protected function exportContent(GridViewInterface $gridView, array $fields): void
+    {
         if ($gridView instanceof ResourceGridView) {
             /** @var Pagerfanta $paginator */
             $paginator = $gridView->getData();
@@ -67,18 +86,31 @@ abstract class AbstractResourceExporter implements ResourceExporterInterface
         }
     }
 
-    protected function sortFields(array &$fields): void
+    protected function sortFields(array $fields): array
     {
-        uasort($fields, function (Field $fieldA, Field $fieldB) {
+        $sortedFields = $fields;
+
+        uasort($sortedFields, function (Field $fieldA, Field $fieldB) {
             if ($fieldA->getPosition() == $fieldB->getPosition()) {
                 return 0;
             }
+
             return ($fieldA->getPosition() < $fieldB->getPosition()) ? -1 : 1;
         });
+
+        return $sortedFields;
     }
+
     protected function getLabel(Field $field)
     {
         return $this->translator->trans($field->getLabel());
+    }
+
+    protected function getFieldByPosition(Grid $definition): array
+    {
+        $fields = $definition->getEnabledFields();
+
+        return $this->sortFields($fields);
     }
 
     /**

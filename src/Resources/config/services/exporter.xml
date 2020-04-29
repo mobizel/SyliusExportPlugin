@@ -6,9 +6,18 @@
     <services>
         <defaults autowire="true" autoconfigure="true" public="false"/>
 
+        <service id="Port\Csv\CsvWriter" public="false">
+            <argument>,</argument>
+        </service>
+
+        <service id="Mobizel\SyliusExportPlugin\Writer\CsvWriter" public="false">
+            <argument type="service" id="Port\Csv\CsvWriter"/>
+        </service>
+
         <service id="Mobizel\SyliusExportPlugin\Exporter\CsvResourceExporter" public="false">
             <argument type="service" key="$fieldsRegistry" id="sylius.registry.grid_field"/>
             <argument type="service" key="$gridRenderer" id="sylius.grid.renderer"/>
+            <argument type="service" key="$writer" id="Mobizel\SyliusExportPlugin\Writer\CsvWriter"/>
             <tag name="mobizel_export.exporter"/>
         </service>
 
