@@ -254,7 +254,7 @@ sylius_backend_customer_bulk_export:
 Contributing
 ------------
 
-Would like to help us and build the best symfony-starter using Sylius? Feel free to open a pull-request!
+Would like to help us ? Feel free to open a pull-request!
 
 License
 -------
