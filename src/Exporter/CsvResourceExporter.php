@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Mobizel\SyliusExportPlugin\Exporter;
 
+use Pagerfanta\Pagerfanta;
 use Sylius\Bundle\ResourceBundle\Controller\RequestConfiguration;
+use Sylius\Bundle\ResourceBundle\Grid\View\ResourceGridView;
 use Sylius\Component\Grid\DataExtractor\DataExtractorInterface;
 use Sylius\Component\Grid\Definition\Field;
 use Sylius\Component\Grid\Definition\Grid;
@@ -26,43 +28,21 @@ use Webmozart\Assert\Assert;
 
 class CsvResourceExporter extends AbstractResourceExporter
 {
-    /** @var  resource */
-    private $handle;
-
-    public function export(GridViewInterface $gridView): string
+    public function getFormat(): string
     {
-        $definition = $gridView->getDefinition();
-
-        ob_start();
-        $handle = fopen('php://output', 'w');
-
-        if (false === $handle) {
-            throw new \Exception('Error opening console output');
-        }
-
-        $this->handle = $handle;
-
-        $this->exportHeaders($definition);
-        $this->exportContent($gridView);
-
-        fclose($this->handle);
-        $content = ob_get_clean();
-
-        return false === $content ? '' : $content;
+        return 'csv';
     }
 
-    protected function exportHeaders(Grid $definition): void
+    public function getContentType(): string
     {
-        $headers = [];
-        $fields = $definition->getEnabledFields();
+        return 'text/csv';
+    }
 
-        $this->sortFields($fields);
+    protected function exportContent(GridViewInterface $gridView, array $fields): void
+    {
+        $this->exportHeaders($fields);
 
-        foreach($fields as $field) {
-            $headers[] = $this->getLabel($field);
-        }
-
-        fputcsv($this->handle, $headers);
+        parent::exportContent($gridView, $fields);
     }
 
     protected function exportResources(GridViewInterface $gridView, $resources, array $fields): void
@@ -72,17 +52,18 @@ class CsvResourceExporter extends AbstractResourceExporter
             foreach ($fields as $field) {
                 $row[] = $this->getFieldValue($gridView, $field, $resource);
             }
-            fputcsv($this->handle, $row);
+            $this->writer->write($row);
         }
     }
 
-    public function getFormat(): string
+    private function exportHeaders(array $fields): void
     {
-        return 'csv';
-    }
+        $headers = [];
 
-    public function getContentType(): string
-    {
-        return 'text/csv';
+        foreach($fields as $field) {
+            $headers[] = $this->getLabel($field);
+        }
+
+        $this->writer->write($headers);
     }
 }

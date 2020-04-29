@@ -3,6 +3,7 @@
 namespace spec\Mobizel\SyliusExportPlugin\Exporter;
 
 use Mobizel\SyliusExportPlugin\Exporter\CsvResourceExporter;
+use Mobizel\SyliusExportPlugin\Writer\WriterInterface;
 use Pagerfanta\Pagerfanta;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -19,9 +20,10 @@ class CsvResourceExporterSpec extends ObjectBehavior
     function let(
         TranslatorInterface $translator,
         ServiceRegistryInterface $fieldsRegistry,
-        GridRendererInterface $gridRenderer
+        GridRendererInterface $gridRenderer,
+        WriterInterface $writer
     ) {
-        $this->beConstructedWith($translator, $fieldsRegistry, $gridRenderer);
+        $this->beConstructedWith($translator, $fieldsRegistry, $gridRenderer, $writer);
     }
 
     function it_is_initializable()
@@ -35,7 +37,8 @@ class CsvResourceExporterSpec extends ObjectBehavior
         Field $field,
         Pagerfanta $paginator,
         \stdClass $resource,
-        GridRendererInterface $gridRenderer
+        GridRendererInterface $gridRenderer,
+        WriterInterface $writer
     ) {
         $field->isEnabled()->willReturn(true);
         $field->getLabel()->willReturn('data');
@@ -50,11 +53,15 @@ class CsvResourceExporterSpec extends ObjectBehavior
 
         $gridView->getDefinition()->shouldBeCalled();
         $grid->getEnabledFields()->shouldBeCalled();
+        $writer->start('test.txt')->shouldBeCalled();
         $gridView->getData()->shouldBeCalled();
         $paginator->getNbPages()->shouldBeCalled();
         $paginator->setCurrentPage(1)->shouldBeCalled();
         $gridRenderer->renderField($gridView, $field, $resource)->shouldBeCalled();
+        $writer->write([null])->shouldBeCalled();
+        $writer->write(['data'])->shouldBeCalled();
+        $writer->getContent()->shouldBeCalled();
 
-        $this->export($gridView);
+        $this->export($gridView, 'test.txt');
     }
 }
