@@ -7,9 +7,6 @@
 <h1 align="center">Mobizel Export plugin</h1>
 
 <p align="center">
-    <a href="https://packagist.org/packages/mobizel/sylius-export-plugin" title="License">
-        <img src="https://img.shields.io/packagist/l/mobizel/sylius-export-plugin.svg" />
-    </a>
     <a href="https://packagist.org/packages/mobizel/sylius-export-plugin" title="Version">
         <img src="https://img.shields.io/packagist/v/mobizel/sylius-export-plugin.svg" />
     </a>
