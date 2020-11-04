@@ -41,7 +41,7 @@
         "symfony/web-profiler-bundle": "^3.4|^4.3",
         "symfony/web-server-bundle": "^3.4|^4.3",
         "sylius/sylius": "^1.6",
-        "se/selenium-server-standalone": "^2.52"
+        "se/selenium-server-standalone": "^3.141"
     },
     "prefer-stable": true,
     "autoload": {
