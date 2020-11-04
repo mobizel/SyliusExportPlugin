@@ -38,7 +38,7 @@
         "symfony/debug-bundle": "^3.4|^4.3",
         "symfony/dotenv": "^4.3",
         "symfony/intl": "^3.4|^4.3",
-        "symfony/web-profiler-bundle": "^3.4|^4.3",
+        "symfony/web-profiler-bundle": "^5.0.11",
         "symfony/web-server-bundle": "^3.4|^4.3",
         "sylius/sylius": "^1.6",
         "se/selenium-server-standalone": "^2.52"
