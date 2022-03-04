@@ -12,6 +12,7 @@
 namespace Tests\Mobizel\SyliusExportPlugin\Behat\Page\Admin\Customer;
 
 use Behat\Mink\Driver\Selenium2Driver;
+use DMore\ChromeDriver\ChromeDriver;
 use Sylius\Component\Customer\Model\CustomerInterface;
 use Sylius\Behat\Page\Admin\Customer\IndexPage as BaseIndexPage;
 use Sylius\Behat\Page\Admin\Customer\IndexPageInterface;
@@ -42,7 +43,7 @@ class IndexPage extends BaseIndexPage implements IndexPageInterface
     {
         $driver = $this->getSession()->getDriver();
 
-        if ($driver instanceof Selenium2Driver) {
+        if ($driver instanceof Selenium2Driver || $driver instanceof ChromeDriver) {
             $this->getElement('filters')->click();
         }
     }

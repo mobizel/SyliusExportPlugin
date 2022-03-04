@@ -16,6 +16,7 @@ namespace Tests\Mobizel\SyliusExportPlugin\Behat\Service\Accessor;
 use Behat\Mink\Driver\Selenium2Driver;
 use Behat\Mink\Exception\DriverException;
 use Behat\Mink\Session;
+use DMore\ChromeDriver\ChromeDriver;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,7 +36,7 @@ class DownloadAccessor implements DownloadAccessorInterface
     public function clearFiles() :void
     {
         $driver = $this->getSession()->getDriver();
-        if ($driver instanceof Selenium2Driver) {
+        if ($driver instanceof Selenium2Driver || $driver instanceof ChromeDriver) {
             $finder = new Finder();
 
             $finder->sortByModifiedTime();
@@ -50,7 +51,7 @@ class DownloadAccessor implements DownloadAccessorInterface
     {
         $driver = $this->getSession()->getDriver();
 
-        if ($driver instanceof Selenium2Driver) {
+        if ($driver instanceof Selenium2Driver || $driver instanceof ChromeDriver) {
             return $this->getFileContent($filePattern);
         }
         return $driver->getContent();
@@ -80,7 +81,15 @@ class DownloadAccessor implements DownloadAccessorInterface
             return $capabilities['chrome.prefs']['download']['default_directory'];
         }
 
-        throw new \Exception('Only to use with selenium2Driver');
+        if ($driver instanceof ChromeDriver) {
+            $driverReflection = new \ReflectionClass($driver);
+            $reflectionProperty = $driverReflection->getProperty('options');
+            $options = $reflectionProperty->getValue($driver);
+
+            return $options['downloadPath'];
+        }
+
+        throw new \Exception('A Behat driver is needed.');
     }
 
     public function getSession(): Session
