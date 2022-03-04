@@ -83,8 +83,9 @@ class DownloadAccessor implements DownloadAccessorInterface
 
         if ($driver instanceof ChromeDriver) {
             $driverReflection = new \ReflectionClass($driver);
-            $reflectionProperty = $driverReflection->getProperty('options');
-            $options = $reflectionProperty->getValue($driver);
+            $optionsProperty = $driverReflection->getProperty('options');
+            $optionsProperty->setAccessible(true);
+            $options = $optionsProperty->getValue($driver);
 
             return $options['downloadPath'];
         }
