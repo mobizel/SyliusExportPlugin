@@ -1,8 +1,0 @@
-imports:
-    - { resource: "@SyliusCustomerBundle/Resources/config/app/config.yml" }
-
-sylius_customer:
-    resources:
-        customer:
-            classes:
-                repository: Tests\Mobizel\SyliusExportPlugin\Application\src\Repository\CustomerRepository

@@ -14,22 +14,13 @@ declare(strict_types=1);
 namespace Tests\Mobizel\SyliusExportPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
-use Behat\Mink\Driver\Selenium2Driver;
-use Sylius\Behat\Page\Admin\Crud\IndexPageInterface;
-use Sylius\Behat\Page\Admin\Customer\CreatePageInterface;
-use Sylius\Behat\Page\Admin\Customer\IndexPageInterface as CustomerIndexPageInterface;
-use Sylius\Behat\Page\Admin\Customer\ShowPageInterface;
-use Sylius\Behat\Page\Admin\Customer\UpdatePageInterface;
-use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
-use Sylius\Component\Core\Model\CustomerInterface;
-use Tests\Mobizel\SyliusExportPlugin\Behat\Page\Admin\Customer\IndexPage;
+use Sylius\Behat\Page\Admin\Customer\IndexPageInterface;
 use Tests\Mobizel\SyliusExportPlugin\Behat\Service\Accessor\DownloadAccessor;
 use Webmozart\Assert\Assert;
 
 final class ManagingCustomersContext implements Context
 {
-    /** @var IndexPage */
-    private $indexPage;
+    private IndexPageInterface $indexPage;
 
     /** @var DownloadAccessor */
     private $downloadAccessor;

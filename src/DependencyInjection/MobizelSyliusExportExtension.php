@@ -34,6 +34,8 @@ final class MobizelSyliusExportExtension extends Extension
     private function loadResources(ContainerBuilder $container): void
     {
         $resources = $container->hasParameter('sylius.resources') ? $container->getParameter('sylius.resources') : [];
+
+        /** @var array $loadedResources */
         $loadedResources = $container->getParameter('sylius.resources');
 
         foreach ($loadedResources as $alias => $resourceConfig) {

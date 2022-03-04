@@ -1,15 +1,15 @@
+behat.yml
+drivers
 etc/build
 tests/Application/var/cache
 tests/Application/var/log
 tests/Application/.env.local
 tests/Application/.env.test.local
-.github
 composer.lock
 vendor
 tests/Application/public/bundles
 tests/Application/public/media
 tests/Application/node_modules
 tests/Application/public/assets
-yarn.lock
 etc/downloads
 export_sylius_customers*

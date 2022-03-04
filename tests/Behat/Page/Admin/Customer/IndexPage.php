@@ -13,11 +13,14 @@ namespace Tests\Mobizel\SyliusExportPlugin\Behat\Page\Admin\Customer;
 
 use Behat\Mink\Driver\Selenium2Driver;
 use Sylius\Component\Customer\Model\CustomerInterface;
-use Tests\Mobizel\SyliusExportPlugin\Behat\Page\Admin\Crud\IndexPage as BaseIndexPage;
+use Sylius\Behat\Page\Admin\Customer\IndexPage as BaseIndexPage;
 use Sylius\Behat\Page\Admin\Customer\IndexPageInterface;
+use Tests\Mobizel\SyliusExportPlugin\Behat\Behaviour\ExportIt;
 
 class IndexPage extends BaseIndexPage implements IndexPageInterface
 {
+    use ExportIt;
+
     public function getCustomerAccountStatus(CustomerInterface $customer): string
     {
         $tableAccessor = $this->getTableAccessor();

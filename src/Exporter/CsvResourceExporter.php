@@ -45,7 +45,7 @@ class CsvResourceExporter extends AbstractResourceExporter
         parent::exportContent($gridView, $fields);
     }
 
-    protected function exportResources(GridViewInterface $gridView, $resources, array $fields): void
+    protected function exportResources(GridViewInterface $gridView, iterable $resources, array $fields): void
     {
         foreach ($resources as $resource) {
             $row = [];

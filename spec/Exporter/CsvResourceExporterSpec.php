@@ -38,10 +38,12 @@ class CsvResourceExporterSpec extends ObjectBehavior
         Pagerfanta $paginator,
         \stdClass $resource,
         GridRendererInterface $gridRenderer,
-        WriterInterface $writer
+        WriterInterface $writer,
+        TranslatorInterface $translator
     ) {
         $field->isEnabled()->willReturn(true);
         $field->getLabel()->willReturn('data');
+        $translator->trans('data')->willReturn('translated_data');
 
         $gridView->getDefinition()->willReturn($grid);
         $grid->getEnabledFields()->willReturn([$field]);
@@ -58,7 +60,7 @@ class CsvResourceExporterSpec extends ObjectBehavior
         $paginator->getNbPages()->shouldBeCalled();
         $paginator->setCurrentPage(1)->shouldBeCalled();
         $gridRenderer->renderField($gridView, $field, $resource)->shouldBeCalled();
-        $writer->write([null])->shouldBeCalled();
+        $writer->write(['translated_data'])->shouldBeCalled();
         $writer->write(['data'])->shouldBeCalled();
         $writer->getContent()->shouldBeCalled();
 

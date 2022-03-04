@@ -65,7 +65,7 @@ abstract class AbstractResourceExporter implements ResourceExporterInterface
         return $this->writer->getContent();
     }
 
-    abstract protected function exportResources(GridViewInterface $gridView, $resources, array $fields): void;
+    abstract protected function exportResources(GridViewInterface $gridView, iterable $resources, array $fields): void;
 
     protected function getFields(Grid $definition): array
     {
@@ -101,7 +101,7 @@ abstract class AbstractResourceExporter implements ResourceExporterInterface
         return $sortedFields;
     }
 
-    protected function getLabel(Field $field)
+    protected function getLabel(Field $field): string
     {
         return $this->translator->trans($field->getLabel());
     }
@@ -114,14 +114,13 @@ abstract class AbstractResourceExporter implements ResourceExporterInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $data
      */
     protected function getFieldValue(GridViewInterface $gridView, Field $field, $data): string
     {
         $renderedData = $this->gridRenderer->renderField($gridView, $field, $data);
         $renderedData = str_replace(PHP_EOL, "", $renderedData);
-        $renderedData = strip_tags($renderedData);
 
-        return $renderedData;
+        return strip_tags($renderedData);
     }
 }
