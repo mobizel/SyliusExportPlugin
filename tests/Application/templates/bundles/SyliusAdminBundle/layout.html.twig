@@ -1,0 +1,7 @@
+{% extends "@!SyliusAdmin/layout.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'assets/admin/js/bulk-export.js'} %}
+{% endblock %}

@@ -31,7 +31,7 @@ Feature: Export customers
         When I want to see all customers in store
         Then I filter customers by value "satin@teamlucifer.com"
         And I want to export customers
-        Then I should download a csv file with 1 customers
+        Then I should download a csv file with 1 customer
         And the csv file should contains "satin@teamlucifer.com"
         But the csv file should not contains "lucy@teamlucifer.com"
 
