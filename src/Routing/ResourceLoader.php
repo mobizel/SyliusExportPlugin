@@ -27,14 +27,11 @@ use Symfony\Component\Yaml\Yaml;
 
 final class ResourceLoader implements LoaderInterface
 {
-    /** @var RegistryInterface */
-    private $resourceRegistry;
+    private RegistryInterface $resourceRegistry;
 
-    /** @var RouteFactoryInterface */
-    private $routeFactory;
+    private RouteFactoryInterface $routeFactory;
 
-    /** @var LoaderInterface */
-    private $resourceLoader;
+    private LoaderInterface $resourceLoader;
 
     public function __construct(
         LoaderInterface $resourceLoader,
@@ -49,18 +46,21 @@ final class ResourceLoader implements LoaderInterface
     /**
      * {@inheritdoc}
      */
-    public function load($resource, $type = null): RouteCollection
+    public function load($resource, string $type = null): RouteCollection
     {
         $processor = new Processor();
         $configurationDefinition = new Configuration();
 
-        $configuration = Yaml::parse($resource);
+        $configuration = (array) Yaml::parse($resource);
         $configuration = $processor->processConfiguration($configurationDefinition, ['routing' => $configuration]);
 
         $routes = $this->resourceLoader->load($resource, $type);
 
-        if ((!empty($configuration['only']) && !in_array('bulkExport', $configuration['only']))
-            || (!empty($configuration['except']) && in_array('bulkExport', $configuration['except']))) {
+        $only = $configuration['only'] ?? [];
+        $except = $configuration['except'] ?? [];
+
+        if ((count($only) > 0 && !in_array('bulkExport', $only, true))
+            || (count($except) > 0 && in_array('bulkExport', $except, true))) {
             return $routes;
         }
 
@@ -80,7 +80,7 @@ final class ResourceLoader implements LoaderInterface
     /**
      * {@inheritdoc}
      */
-    public function supports($resource, $type = null): bool
+    public function supports($resource, string $type = null): bool
     {
         return $this->resourceLoader->supports($resource, $type);
     }
@@ -118,22 +118,27 @@ final class ResourceLoader implements LoaderInterface
 
         if ($isApi) {
             $defaults['_sylius']['serialization_groups'] = ['Default'];
-        }
-        if ($isApi) {
             $defaults['_sylius']['csrf_protection'] = false;
         }
+
         if (isset($configuration['grid'])) {
             $defaults['_sylius']['grid'] = $configuration['grid'];
         }
+
         if (isset($configuration['serialization_version'])) {
             $defaults['_sylius']['serialization_version'] = $configuration['serialization_version'];
         }
+
         if (isset($configuration['section'])) {
             $defaults['_sylius']['section'] = $configuration['section'];
         }
-        if (!empty($configuration['criteria'])) {
+
+        $criteria = $configuration['criteria'] ?? [];
+
+        if (count($criteria) > 0) {
             $defaults['_sylius']['criteria'] = $configuration['criteria'];
         }
+
         if (array_key_exists('filterable', $configuration)) {
             $defaults['_sylius']['filterable'] = $configuration['filterable'];
         }
@@ -141,6 +146,7 @@ final class ResourceLoader implements LoaderInterface
         if (isset($configuration['permission'])) {
             $defaults['_sylius']['permission'] = $configuration['permission'];
         }
+
         if (isset($configuration['vars']['all'])) {
             $defaults['_sylius']['vars'] = $configuration['vars']['all'];
         }

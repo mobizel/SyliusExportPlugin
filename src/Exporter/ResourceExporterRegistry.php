@@ -18,16 +18,11 @@ use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 
 class ResourceExporterRegistry
 {
-    /** @var array  */
-    private $exporters;
+    private array $exporters;
 
-    /** @var string */
-    private $fallbackFormat;
+    private string $fallbackFormat;
 
     /**
-     * ResourceImporterRegistry constructor.
-     * @param iterable $exporters
-     * @param string $fallbackFormat
      * @throws ExporterAlreadyExistException
      */
     public function __construct(iterable $exporters, string $fallbackFormat)
@@ -54,8 +49,6 @@ class ResourceExporterRegistry
     }
 
     /**
-     * @param string $format
-     * @return ResourceExporterInterface
      * @throws \Exception
      */
     public function getExporter(?string $format): ResourceExporterInterface

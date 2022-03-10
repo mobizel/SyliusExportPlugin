@@ -15,7 +15,7 @@ Feature: Export customers
         And I want to log in
         And I am logged in as an administrator
 
-    @ui
+    @ui @javascript
     Scenario: Export all customers
         Given 10 customers have placed 10 orders for total of "€459.00"
         And there is a customer "last" identified by an email "last@added.com" and a password "pswd"
@@ -31,7 +31,7 @@ Feature: Export customers
         When I want to see all customers in store
         Then I filter customers by value "satin@teamlucifer.com"
         And I want to export customers
-        Then I should download a csv file with 1 customers
+        Then I should download a csv file with 1 customer
         And the csv file should contains "satin@teamlucifer.com"
         But the csv file should not contains "lucy@teamlucifer.com"
 

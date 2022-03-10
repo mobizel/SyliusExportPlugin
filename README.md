@@ -89,16 +89,21 @@ sylius_grid:
 
 ### Add new button macro
 
-Copy ```vendor/sylius/sylius/src/Sylius/Bundle/UiBundle/Resources/views/Macro/buttons.html.twig``` to ```template/bundles/SyliusUiBundle/Macro/buttons.html.twig ``` and add new macro :
+Add this following file to add the new button macro.
 
 ````twig
+# templates/bundles/SyliusUiBundle/Macro/buttons.html.twig
+
+{% extends "@!SyliusUi/Macro/buttons.html.twig" %}
+
 {% macro bulkExport(url, message, labeled = true) %}
     <form action="{{ url }}" method="post" id="bulk-export">
-        <button class="ui red {% if labeled %}labeled {% endif %}icon button not_disabled js-bulk-export" type="submit">
+        <a class="ui red {% if labeled %}labeled {% endif %}icon button not_disabled" type="submit" href="#">
             <i class="icon download"></i> {{ ((message is empty and labeled) ? 'sylius.ui.export' : message)|trans }}
-        </button>
+        </a>
     </form>
 {% endmacro %}
+
 ````
 
 ### Javascript integration

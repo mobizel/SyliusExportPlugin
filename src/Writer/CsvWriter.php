@@ -12,13 +12,13 @@
 namespace Mobizel\SyliusExportPlugin\Writer;
 
 use Port\Csv\CsvWriter as PortCsvWriter;
+
 /**
  * @author Kévin Régnier <kevin@mobizel.com>
  */
 class CsvWriter implements WriterInterface
 {
-    /** @var  PortCsvWriter */
-    private $writer;
+    private PortCsvWriter $writer;
 
     public function __construct(PortCsvWriter $writer)
     {
@@ -28,7 +28,8 @@ class CsvWriter implements WriterInterface
     public function start(string $filename): void
     {
         $file = fopen($filename, 'w+');
-        if (!$file) {
+
+        if (false === $file) {
             throw new \Exception('File open failed.');
         }
 

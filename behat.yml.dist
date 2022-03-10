@@ -1,22 +1,30 @@
 imports:
     - vendor/sylius/sylius/src/Sylius/Behat/Resources/config/suites.yml
-    - tests/Behat/Resources/suites.yml
+    - tests/Application/config/behat/suites.yaml
 
 default:
     extensions:
-        Lakion\Behat\MinkDebugExtension:
+        DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension: ~
+
+        FriendsOfBehat\MinkDebugExtension:
             directory: etc/build
             clean_start: false
             screenshot: true
 
         Behat\MinkExtension:
             files_path: "%paths.base%/vendor/sylius/sylius/src/Sylius/Behat/Resources/fixtures/"
-            base_url: "http://localhost:8000/"
+            base_url: "https://localhost:8080/"
             default_session: symfony
             javascript_session: chrome
             sessions:
                 symfony:
                     symfony: ~
+                chrome_headless:
+                    chrome:
+                        api_url: http://127.0.0.1:9222
+                        validate_certificate: false
+                        download_behavior: allow
+                        download_path: "%paths.base%/etc/downloads"
                 chrome:
                     selenium2:
                         browser: chrome
@@ -26,18 +34,20 @@ default:
                             version: ""
                             marionette: null # https://github.com/Behat/MinkExtension/pull/311
                             chrome:
-                                switches:
-                                    - "start-fullscreen"
-                                    - "start-maximized"
-                                    - "no-sandbox"
-                                    - "headless"
-                                    - "window-size=1920,1080"
-                                    - "--disable-gpu"
                                 prefs:
                                     download:
                                         default_directory: "%paths.base%/etc/downloads"
                                         prompt_for_download: false
+                                switches:
+                                    - "start-fullscreen"
+                                    - "start-maximized"
+                                    - "no-sandbox"
+                                    - "--headless"
+                                    - "--window-size=1920,1080"
+                                    - "--disable-gpu"
                             extra_capabilities:
+                                acceptSslCerts: true
+                                acceptInsecureCerts: true
                                 unexpectedAlertBehaviour: accept
                 firefox:
                     selenium2:

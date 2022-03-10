@@ -32,26 +32,19 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class BulkExportAction
 {
-    /** @var MetadataInterface */
-    protected $metadata;
+    protected MetadataInterface $metadata;
 
-    /** @var RequestConfigurationFactoryInterface */
-    protected $requestConfigurationFactory;
+    protected RequestConfigurationFactoryInterface $requestConfigurationFactory;
 
-    /** @var RepositoryInterface */
-    protected $repository;
+    protected RepositoryInterface $repository;
 
-    /** @var ResourcesCollectionProviderInterface */
-    protected $resourcesCollectionProvider;
+    protected ResourcesCollectionProviderInterface $resourcesCollectionProvider;
 
-    /** @var EventDispatcherInterface */
-    protected $eventDispatcher;
+    protected EventDispatcherInterface $eventDispatcher;
 
-    /** @var AuthorizationCheckerInterface */
-    protected $authorizationChecker;
+    protected AuthorizationCheckerInterface $authorizationChecker;
 
-    /** @var ResourceExporterRegistry */
-    private $exporterRegistry;
+    private ResourceExporterRegistry $exporterRegistry;
 
     public function __construct(
         MetadataInterface $metadata,

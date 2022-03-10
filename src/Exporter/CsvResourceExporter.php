@@ -13,18 +13,7 @@ declare(strict_types=1);
 
 namespace Mobizel\SyliusExportPlugin\Exporter;
 
-use Pagerfanta\Pagerfanta;
-use Sylius\Bundle\ResourceBundle\Controller\RequestConfiguration;
-use Sylius\Bundle\ResourceBundle\Grid\View\ResourceGridView;
-use Sylius\Component\Grid\DataExtractor\DataExtractorInterface;
-use Sylius\Component\Grid\Definition\Field;
-use Sylius\Component\Grid\Definition\Grid;
-use Sylius\Component\Grid\FieldTypes\FieldTypeInterface;
 use Sylius\Component\Grid\View\GridViewInterface;
-use Sylius\Component\Registry\ServiceRegistryInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Webmozart\Assert\Assert;
 
 class CsvResourceExporter extends AbstractResourceExporter
 {
@@ -45,7 +34,7 @@ class CsvResourceExporter extends AbstractResourceExporter
         parent::exportContent($gridView, $fields);
     }
 
-    protected function exportResources(GridViewInterface $gridView, $resources, array $fields): void
+    protected function exportResources(GridViewInterface $gridView, iterable $resources, array $fields): void
     {
         foreach ($resources as $resource) {
             $row = [];
