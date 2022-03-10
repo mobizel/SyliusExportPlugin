@@ -15,7 +15,7 @@ Feature: Export customers
         And I want to log in
         And I am logged in as an administrator
 
-    @ui
+    @ui @javascript
     Scenario: Export all customers
         Given 10 customers have placed 10 orders for total of "€459.00"
         And there is a customer "last" identified by an email "last@added.com" and a password "pswd"

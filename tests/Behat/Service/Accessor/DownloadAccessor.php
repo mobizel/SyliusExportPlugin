@@ -54,6 +54,7 @@ class DownloadAccessor implements DownloadAccessorInterface
         if ($driver instanceof Selenium2Driver || $driver instanceof ChromeDriver) {
             return $this->getFileContent($filePattern);
         }
+
         return $driver->getContent();
     }
 

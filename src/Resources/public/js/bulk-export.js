@@ -1,5 +1,5 @@
 const form = document.querySelector('#bulk-export');
-const exportButton = form.querySelector('button');
+const exportButton = form.querySelector('a');
 
 exportButton.addEventListener('click', (evt) => {
     evt.preventDefault();
@@ -21,38 +21,4 @@ exportButton.addEventListener('click', (evt) => {
     });
 
     form.submit();
-});
-
-$.fn.extend({
-    checkAll() {
-        this.each((idx, el) => {
-            const $checkboxAll = $(el);
-            const $checkboxes = $($checkboxAll.attr('data-js-bulk-checkboxes'));
-            const $buttons = $($checkboxAll.attr('data-js-bulk-buttons'));
-
-            const isAnyChecked = () => {
-                let checked = false;
-                $checkboxes.each((i, checkbox) => {
-                    if (checkbox.checked) checked = true;
-                });
-                return checked;
-            };
-
-            const buttonsPropRefresh = () => {
-                $buttons.find('button:not(.js-bulk-export)').prop('disabled', !isAnyChecked());
-            };
-
-            $checkboxAll.on('change', () => {
-                $checkboxes.prop('checked', $(this).is(':checked'));
-                buttonsPropRefresh();
-            });
-
-            $checkboxes.on('change', () => {
-                $checkboxAll.prop('checked', isAnyChecked());
-                buttonsPropRefresh();
-            });
-
-            buttonsPropRefresh();
-        });
-    },
 });

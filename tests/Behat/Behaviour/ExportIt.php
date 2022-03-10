@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace Tests\Mobizel\SyliusExportPlugin\Behat\Behaviour;
 
-use Behat\Mink\Element\NodeElement;
+use FriendsOfBehat\PageObjectExtension\Page\Page;
+use Sylius\Behat\Service\JQueryHelper;
 
 /**
- * @method NodeElement getElement(string $name, array $parameters = [])
+ * @mixin Page
  */
 trait ExportIt
 {
     public function bulkExport(): void
     {
-        $this->getElement('bulk_actions')->pressButton('Export');
+        $this->getElement('bulk_actions')->clickLink('Export');
+        JQueryHelper::waitForAsynchronousActionsToFinish($this->getSession());
+        sleep(5);
     }
 }
