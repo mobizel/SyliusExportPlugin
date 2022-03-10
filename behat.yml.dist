@@ -38,15 +38,14 @@ default:
                                     download:
                                         default_directory: "%paths.base%/etc/downloads"
                                         prompt_for_download: false
+                                switches:
+                                    - "start-fullscreen"
+                                    - "start-maximized"
+                                    - "no-sandbox"
+                                    - "--headless"
+                                    - "--window-size=1920,1080"
+                                    - "--disable-gpu"
                             extra_capabilities:
-                                chromeOptions:
-                                    args:
-                                        - "start-fullscreen"
-                                        - "start-maximized"
-                                        - "no-sandbox"
-                                        - "headless"
-                                        - "window-size=1920,1080"
-                                        - "--disable-gpu"
                                 acceptSslCerts: true
                                 acceptInsecureCerts: true
                                 unexpectedAlertBehaviour: accept
