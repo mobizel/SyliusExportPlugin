@@ -72,14 +72,6 @@ jobs:
                 run: symfony server:ca:install
 
             -
-                name: Detect drivers
-                run: vendor/bin/bdi detect drivers
-
-            -
-                name: Run Selenium
-                run: vendor/bin/selenium-server-standalone -Dwebdriver.chrome.driver=drivers/chromedriver > /dev/null 2>&1 &
-
-            -
                 name: Run webserver
                 run: (cd tests/Application && symfony server:start --port=8080 --dir=public --daemon)
 
@@ -112,6 +104,14 @@ jobs:
             -
                 name: Install PHP dependencies
                 run: composer install --no-interaction
+
+            -
+                name: Detect drivers
+                run: vendor/bin/bdi detect drivers
+
+            -
+                name: Run Selenium
+                run: vendor/bin/selenium-server-standalone -Dwebdriver.chrome.driver=drivers/chromedriver > /dev/null 2>&1 &
 
             -
                 name: Get Yarn cache directory
