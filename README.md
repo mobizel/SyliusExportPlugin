@@ -98,9 +98,9 @@ Add this following file to add the new button macro.
 
 {% macro bulkExport(url, message, labeled = true) %}
     <form action="{{ url }}" method="post" id="bulk-export">
-        <button class="ui red {% if labeled %}labeled {% endif %}icon button not_disabled" type="submit">
+        <a class="ui red {% if labeled %}labeled {% endif %}icon button not_disabled" type="submit" href="#">
             <i class="icon download"></i> {{ ((message is empty and labeled) ? 'sylius.ui.export' : message)|trans }}
-        </button>
+        </a>
     </form>
 {% endmacro %}
 
