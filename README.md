@@ -84,7 +84,12 @@ Add this following file to add the new button macro.
 
 ### Javascript integration
 
-Integrate ```vendor/mobizel/sylius-export-plugin/src/Resources/private/js/bulk-export.js``` in your javascript build (webpack / gulp) or directly in twig (you need to copy file to your assets directory)
+Integrate ```vendor/mobizel/sylius-export-plugin/src/Resources/public/js/bulk-export.js``` in your javascript build (webpack / gulp) or directly in twig (you need to copy file to your assets directory)
+
+Twig integration example:
+```twig
+<script src="{{ asset('bundles/mobizelsyliusexportplugin/js/bulk-export.js') }}"></script>
+```
 
 ## How to use it
 
@@ -229,6 +234,20 @@ sylius_backend_customer_bulk_export:
                 export_format: xml
         ...
 ````
+
+### CSV settings
+
+You can configure setting of the CSV writer.
+
+```yaml
+# config/packages/mobizel_sylius_export.yaml
+
+mobizel_sylius_export:
+    csv_settings:
+        delimiter: ';'
+        utf8_encoding: false
+```
+
 Contributing
 ------------
 
