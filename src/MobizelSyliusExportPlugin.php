@@ -7,7 +7,14 @@ namespace Mobizel\SyliusExportPlugin;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-final class MobizelSyliusExportPlugin extends Bundle
-{
-    use SyliusPluginTrait;
+if (class_exists(SyliusPluginTrait::class)) {
+    final class MobizelSyliusExportPlugin extends Bundle
+    {
+        use SyliusPluginTrait;
+    }
+} else {
+    final class MobizelSyliusExportPlugin extends Bundle
+    {
+    }
 }
+

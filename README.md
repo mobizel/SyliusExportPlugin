@@ -37,7 +37,7 @@ IMPORTANT: This plugin does not depend on ````sylius/sylius```` but only ```syli
 
 2. Register the bundle:
 
-=> Integration with ````sylius/sylius```` (full e-commerce framework)
+=> If you do not use ```symfony/flex``` you have to import the plugin in the Kernel.
 
 ```php
 <?php
@@ -50,41 +50,17 @@ return [
 ];
 ```
 
-=> Integration with third party that use ````sylius/resource-bundle```` (like monofony)
-
-```php
-<?php
-
-// config/bundles.php
-
-return [
-    // ...
-   Mobizel\SyliusExportPlugin\MobizelSyliusExportBundle::class => ['all' => true],
-];
-```
-
 ## Configuration
 
 ### GRID configuration:
 
 Create file ``` config/packages/sylius_grid.yaml``` if not exist and add new bulk action
 
-=> With ````sylius/sylius```` (full e-commerce framework)
-
 ````yaml
 sylius_grid:
     templates:
         bulk_action:
             export: "@MobizelSyliusExportPlugin/Admin/Grid/BulkAction/export.html.twig"
-````
-
-=> With third party that use ````sylius/resource-bundle```` (like monofony)
-
-````yaml
-sylius_grid:
-    templates:
-        bulk_action:
-            export: "@MobizelSyliusExport/Admin/Grid/BulkAction/export.html.twig"
 ````
 
 ### Add new button macro
