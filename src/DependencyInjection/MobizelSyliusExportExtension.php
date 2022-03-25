@@ -29,6 +29,7 @@ final class MobizelSyliusExportExtension extends Extension
         $loader->load('services.xml');
 
         $this->loadResources($container);
+        $this->loadSettings($container, $config);
     }
 
     private function loadResources(ContainerBuilder $container): void
@@ -76,5 +77,18 @@ final class MobizelSyliusExportExtension extends Extension
         ;
 
         return $definition;
+    }
+
+    private function loadSettings(ContainerBuilder $container, array $config): void
+    {
+        $container->setParameter(
+            'mobizel.sylius_export_plugin.csv_settings.delimiter',
+            $config['csv_settings']['delimiter'] ?? ',',
+        );
+
+        $container->setParameter(
+            'mobizel.sylius_export_plugin.csv_settings.utf8_encoding',
+            $config['csv_settings']['utf8_encoding'] ?? true,
+        );
     }
 }
