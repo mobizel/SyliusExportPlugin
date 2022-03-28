@@ -85,10 +85,5 @@ final class MobizelSyliusExportExtension extends Extension
             'mobizel.sylius_export_plugin.csv_settings.delimiter',
             $config['csv_settings']['delimiter'] ?? ',',
         );
-
-        $container->setParameter(
-            'mobizel.sylius_export_plugin.csv_settings.utf8_encoding',
-            $config['csv_settings']['utf8_encoding'] ?? true,
-        );
     }
 }

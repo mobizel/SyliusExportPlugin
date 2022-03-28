@@ -6,4 +6,3 @@ parameters:
 mobizel_sylius_export:
     csv_settings:
         delimiter: ';'
-        utf8_encoding: false

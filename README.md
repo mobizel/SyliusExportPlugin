@@ -245,7 +245,6 @@ You can configure setting of the CSV writer.
 mobizel_sylius_export:
     csv_settings:
         delimiter: ';'
-        utf8_encoding: false
 ```
 
 Contributing

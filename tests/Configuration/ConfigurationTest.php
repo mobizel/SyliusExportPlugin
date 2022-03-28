@@ -41,7 +41,6 @@ class ConfigurationTest extends TestCase
             [
                 'csv_settings' => [
                     'delimiter' => null,
-                    'utf8_encoding' => true,
                 ],
             ],
             'csv_settings'
@@ -55,13 +54,11 @@ class ConfigurationTest extends TestCase
             [
                 ['csv_settings' => [
                     'delimiter' => ';',
-                    'utf8_encoding' => false,
                 ]],
             ],
             [
                 'csv_settings' => [
                     'delimiter' => ';',
-                    'utf8_encoding' => false,
                 ],
             ],
             'csv_settings'

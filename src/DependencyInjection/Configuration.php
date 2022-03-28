@@ -25,7 +25,6 @@ final class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->variableNode('delimiter')->defaultNull()->end()
-                        ->booleanNode('utf8_encoding')->defaultTrue()->end()
                     ->end()
                 ->end()
             ->end()
