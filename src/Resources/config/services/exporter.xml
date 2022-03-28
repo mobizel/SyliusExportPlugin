@@ -8,7 +8,6 @@
 
         <service id="Port\Csv\CsvWriter" public="false">
             <argument key="$delimiter">%mobizel.sylius_export_plugin.csv_settings.delimiter%</argument>
-            <argument key="$utf8Encoding">%mobizel.sylius_export_plugin.csv_settings.utf8_encoding%</argument>
         </service>
 
         <service id="Mobizel\SyliusExportPlugin\Writer\CsvWriter" public="false">
