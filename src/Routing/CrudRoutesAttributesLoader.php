@@ -33,7 +33,6 @@ final class CrudRoutesAttributesLoader implements RouteLoaderInterface
     {
         $this->mapping = $mapping;
         $this->resourceLoader = $resourceLoader;
-        $this->crudRoutesAttributesLoader = $crudRoutesAttributesLoader;
     }
 
     public function __invoke(): RouteCollection
